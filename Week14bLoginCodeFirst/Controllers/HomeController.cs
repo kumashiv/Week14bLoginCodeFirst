@@ -7,16 +7,29 @@ namespace Week14bLoginCodeFirst.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        
         private readonly DataContext _db;
 
-        public HomeController(ILogger<HomeController> logger, DataContext db)
+        public HomeController(DataContext db)
         {
-            _logger = logger;
-            _db=db;
+            _db = db;
         }
 
+
+        //public HomeController(ILogger<HomeController> logger, DataContext db)
+        //{
+        //    _logger = logger;
+        //    _db=db;
+        //}
+
+
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult LogIn()
         {
             return View();
         }
@@ -33,3 +46,4 @@ namespace Week14bLoginCodeFirst.Controllers
         }
     }
 }
+
