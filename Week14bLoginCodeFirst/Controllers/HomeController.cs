@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-//using Week14bLoginCodeFirst.AppDbContext;
+using Week14bLoginCodeFirst.AppDbContext;
 using Week14bLoginCodeFirst.Models;
 
 namespace Week14bLoginCodeFirst.Controllers
@@ -8,12 +8,12 @@ namespace Week14bLoginCodeFirst.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        //private readonly DataContext _db;
+        private readonly DataContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DataContext db)
         {
             _logger = logger;
-            //_db=db;
+            _db=db;
         }
 
         public IActionResult Index()

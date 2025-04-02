@@ -1,15 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-//using Week14bLoginCodeFirst.AppDbContext;
+using Week14bLoginCodeFirst.AppDbContext;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddDbContext<DataContext>(options =>
-//{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("BloggingDatabase"));
-//});
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BloggingDatabase"));
+});
 
 var app = builder.Build();
 
