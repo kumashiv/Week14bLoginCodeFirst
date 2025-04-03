@@ -1,0 +1,26 @@
+﻿@model Week14bLoginCodeFirst.Models.Employee
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="form-horizontal" asp-controller="Home" asp-action="Update">
+    <h1>Update</h1>
+
+    <label>Email</label>
+    <input type="text" asp-for="Email" />
+    <label>Password</label>
+    <input type="text" asp-for="Password" />
+
+    <br />
+
+    <label>First Name</label>
+    <input type="text" asp-for="FirstName" />
+    <label>Last Name</label>
+    <input type="text" asp-for="LastName" />
+    <label>Address</label>
+    <input type="text" asp-for="Address" />
+
+    <button type="Submit">Save</button>
+</form>
+

@@ -58,6 +58,31 @@ namespace Week14bLoginCodeFirst.Controllers
             return View(Emp);
         }
 
+        public IActionResult Delete(int id)
+        {
+            var Emp = _db.Employees.FirstOrDefault(x => x.Id == id);     // matching with database id
+            _db.Employees.Remove(Emp);
+            _db.SaveChanges();
+            return RedirectToAction("GetEmployeeData");
+        }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var Emp = _db.Employees.FirstOrDefault(x => x.Id == id);
+
+            return View(Emp);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Employee obj)       // Saving edited page with information
+        {
+            _db.Employees.Update(obj);
+            _db.SaveChanges();
+            //return View();
+            return RedirectToAction("GetEmployeeData");
+        }
+
 
         public IActionResult Privacy()
         {
