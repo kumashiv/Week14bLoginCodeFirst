@@ -7,20 +7,20 @@ namespace Week14bLoginCodeFirst.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
-        
+        private readonly ILogger<HomeController> _logger;
         private readonly DataContext _db;
-
-        public HomeController(DataContext db)
+        public HomeController(ILogger<HomeController> logger, DataContext db)
         {
+            _logger = logger;
             _db = db;
         }
 
 
-        //public HomeController(ILogger<HomeController> logger, DataContext db)
+        //private readonly DataContext _db;
+
+        //public HomeController(DataContext db)
         //{
-        //    _logger = logger;
-        //    _db=db;
+        //    _db = db;
         //}
 
 
@@ -29,10 +29,30 @@ namespace Week14bLoginCodeFirst.Controllers
             return View();
         }
 
-        public IActionResult LogIn()
+        public IActionResult Create()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(Employee obj)
+        {
+            try
+            {
+                _db.Employees.Add(obj);     // adding to SQL query    //constructor part   
+                                            // Employees is the table name defined in DataContext.cs
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine(ex.Message);
+                return RedirectToAction("Error");
+            }
+            return View();
+        }
+
+
+
 
         public IActionResult Privacy()
         {
