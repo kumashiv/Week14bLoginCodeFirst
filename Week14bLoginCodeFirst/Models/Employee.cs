@@ -7,9 +7,9 @@ namespace Week14bLoginCodeFirst.Models
         [Key]     // to make id primary key
         public int Id { get; set; }   // properties  - auto type
 
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
-        public string Password { get; set; }
+        public required string Password { get; set; }
 
         public string? FirstName { get; set; }
 
