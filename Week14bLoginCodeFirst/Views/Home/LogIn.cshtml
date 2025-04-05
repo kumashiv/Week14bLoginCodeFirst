@@ -1,0 +1,22 @@
+﻿@model Week14bLoginCodeFirst.Models.Employee
+
+@{
+    ViewData["Title"] = "LogIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form class="form-horizontal" asp-controller="Home" asp-action="LogIn">
+    <h1>LogIn</h1>
+
+    <label>Email</label>
+    <input type="text" asp-for="Email" />
+    <label>Password</label>
+    <input type="text" asp-for="Password" />
+
+    <br />
+
+    <button type="Submit">Save</button>
+</form>
+
+

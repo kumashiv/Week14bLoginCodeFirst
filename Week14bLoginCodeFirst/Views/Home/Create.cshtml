@@ -1,9 +1,15 @@
 ﻿@model Week14bLoginCodeFirst.Models.Employee
 @{
     ViewData["Title"] = "Create";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    #ADD{
+        color:goldenrod;
+        font-size:14px;
+    }
+</style>
 
 
 <form class="form-horizontal" asp-controller="Home" asp-action="Create">
@@ -11,20 +17,25 @@
 
 
     <label>Email</label>
-    <input type="text" asp-for="Email" />
+    <input type="text" asp-for="Email" /><br />
+    <span asp-validation-for="Email" class="text-danger"></span><br />
     <label>Password</label>
-    <input type="text" asp-for="Password" />
-
+    <input type="text" asp-for="Password" /><br />
+    @* <span asp-validation-for="Password" class="text-danger"></span> *@
+    <span asp-validation-for="Password" id="ADD"></span>
     <br />
 
     <label>First Name</label>
-    <input type="text" asp-for="FirstName" />
+    <input type="text" asp-for="FirstName" /><br />
+    @* <span asp-validation-for="FirstName" id="ADD"></span><br /> *@
     <label>Last Name</label>
-    <input type="text" asp-for="LastName" />
+    <input type="text" asp-for="LastName" /><br />
     <label>Address</label>
     <input type="text" asp-for="Address" />
 
     <button type="Submit">Save</button>
 </form>
 
- 
+ @section Scripts {
+     <partial name="_ValidationScriptsPartial"/>
+ }

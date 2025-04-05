@@ -34,20 +34,30 @@ namespace Week14bLoginCodeFirst.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public IActionResult Create(Employee obj)
+        //{
+        //    try
+        //    {
+        //        _db.Employees.Add(obj);     // adding to SQL query    //constructor part   
+        //                                    // Employees is the table name defined in DataContext.cs
+        //        _db.SaveChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //Console.WriteLine(ex.Message);
+        //        return RedirectToAction("Error");
+        //    }
+        //    return View();
+        //}
+
         [HttpPost]
         public IActionResult Create(Employee obj)
         {
-            try
-            {
-                _db.Employees.Add(obj);     // adding to SQL query    //constructor part   
-                                            // Employees is the table name defined in DataContext.cs
-                _db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                //Console.WriteLine(ex.Message);
-                return RedirectToAction("Error");
-            }
+            _db.Employees.Add(obj);     // adding to SQL query    //constructor part   
+                                        // Employees is the table name defined in DataContext.cs
+            _db.SaveChanges();
+
             return View();
         }
 
@@ -81,6 +91,32 @@ namespace Week14bLoginCodeFirst.Controllers
             _db.SaveChanges();
             //return View();
             return RedirectToAction("GetEmployeeData");
+        }
+
+
+
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LogIn(Employee obj)
+        {
+            var Emp = _db.Employees.FirstOrDefault(e => e.Email == obj.Email && e.Password == obj.Password);
+            if (Emp != null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Login");
         }
 
 
