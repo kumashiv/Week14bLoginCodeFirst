@@ -12,6 +12,13 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BloggingDatabase"));
 });
 
+// Session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(3000);
+}
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,12 +29,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();   //session
 
 app.MapControllerRoute(
     name: "default",

@@ -1,41 +1,123 @@
 ﻿@model Week14bLoginCodeFirst.Models.Employee
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Microsoft.AspNetCore.Http
+@{
+	var userEmail = Context.Session.GetString("userEmail");
+}
+
+
+
 <style>
-    #ADD{
-        color:goldenrod;
-        font-size:14px;
-    }
+	#ADD {
+		color: goldenrod;
+		font-size: 14px;
+	}
 </style>
 
 
-<form class="form-horizontal" asp-controller="Home" asp-action="Create">
-    <h1>Create</h1>
+@if (@userEmail == "Kamin")
+{
+	<h2>You're not able to create user'</h2>
+}
+else{
+	<form class="form-horizontal" asp-controller="Home" asp-action="Create">
+
+		<div>Logged in User: <span>@userEmail</span></div>
 
 
-    <label>Email</label>
-    <input type="text" asp-for="Email" /><br />
-    <span asp-validation-for="Email" class="text-danger"></span><br />
-    <label>Password</label>
-    <input type="text" asp-for="Password" /><br />
-    @* <span asp-validation-for="Password" class="text-danger"></span> *@
-    <span asp-validation-for="Password" id="ADD"></span>
-    <br />
+		<h1>Create</h1>
 
-    <label>First Name</label>
-    <input type="text" asp-for="FirstName" /><br />
-    @* <span asp-validation-for="FirstName" id="ADD"></span><br /> *@
-    <label>Last Name</label>
-    <input type="text" asp-for="LastName" /><br />
-    <label>Address</label>
-    <input type="text" asp-for="Address" />
 
-    <button type="Submit">Save</button>
-</form>
+		<label>Email</label>
+		<input type="text" asp-for="Email" /><br />
+		<span asp-validation-for="Email" class="text-danger"></span><br />
+		<label>Password</label>
+		<input type="text" asp-for="Password" /><br />
 
- @section Scripts {
-     <partial name="_ValidationScriptsPartial"/>
- }
+		<span asp-validation-for="Password" id="ADD"></span>
+		<br />
+
+		<label>First Name</label>
+		<input type="text" asp-for="FirstName" /><br />
+
+		<label>Last Name</label>
+		<input type="text" asp-for="LastName" /><br />
+		<label>Address</label>
+		<input type="text" asp-for="Address" />
+
+		<button type="Submit">Save</button>
+	</form>
+}
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+
+}
+
+
+@* 
+
+<div>
+
+	<label>Email</label>
+	<input type="text" asp-for="Email" /><br />
+	<span asp-validation-for="Email" class="text-danger"></span><br />
+	<label>Password</label>
+	<input type="text" asp-for="Password" /><br />
+
+	<span asp-validation-for="Password" id="ADD"></span>
+	<br />
+
+	<label>First Name</label>
+	<input type="text" id="txtFirstName" asp-for="FirstName" /><br />
+
+	<label>Last Name</label>
+	<input type="text" asp-for="LastName" /><br />
+	<label>Address</label>
+	<input class="yy" type="text" asp-for="Address" />
+
+	<button type="Submit">Save</button>
+
+	<br />
+
+	<p>This is a paragraph with little content.</p>
+	<p>This is another small paragraph.</p>
+
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+
+		$(document).ready(function(){
+	  $(".yy").click(function(){
+		  alert("Test");
+		  var FirstName = $('#txtFirstName').val();
+
+		$("p").hide();
+
+		$.ajax({
+			url:'Home/Create',
+			type:'POST',
+			data:{
+				FirstName: FirstName
+			},
+			success:function(response){
+				alert("Yay");
+			}
+		})
+	  });
+	});
+
+</script> *@
+
+
+@* <span asp-validation-for="FirstName" id="ADD"></span><br /> *@
+@* <span asp-validation-for="Password" class="text-danger"></span> *@

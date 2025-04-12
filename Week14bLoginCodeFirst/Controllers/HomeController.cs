@@ -103,9 +103,12 @@ namespace Week14bLoginCodeFirst.Controllers
         [HttpPost]
         public IActionResult LogIn(Employee obj)
         {
+
             var Emp = _db.Employees.FirstOrDefault(e => e.Email == obj.Email && e.Password == obj.Password);
+            
             if (Emp != null)
             {
+                HttpContext.Session.SetString("userEmail", Emp.Email);
                 return RedirectToAction("Index");
             }
             else
