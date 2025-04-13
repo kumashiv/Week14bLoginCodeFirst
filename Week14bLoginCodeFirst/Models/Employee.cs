@@ -25,6 +25,7 @@ namespace Week14bLoginCodeFirst.Models
 
         public string? Address { get; set; }
 
-
+        [Required(ErrorMessage = "Role is required")]
+        public required string Role { get; set; }
     }
 }

@@ -5,7 +5,7 @@
 namespace Week14bLoginCodeFirst.Migrations
 {
     /// <inheritdoc />
-    public partial class RequiredFieldsadded : Migration
+    public partial class SessionLoginCodeFirstOne : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
