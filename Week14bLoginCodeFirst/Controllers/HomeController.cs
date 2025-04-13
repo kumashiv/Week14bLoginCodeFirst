@@ -76,6 +76,7 @@ namespace Week14bLoginCodeFirst.Controllers
             return RedirectToAction("GetEmployeeData");
         }
 
+
         [HttpGet]
         public IActionResult Update(int id)
         {
