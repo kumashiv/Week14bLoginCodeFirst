@@ -27,5 +27,7 @@ namespace Week14bLoginCodeFirst.Models
 
         [Required(ErrorMessage = "Role is required")]
         public required string Role { get; set; }
+
+        public bool? isActive { get; set; }
     }
 }

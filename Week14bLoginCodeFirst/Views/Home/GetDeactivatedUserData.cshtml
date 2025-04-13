@@ -1,14 +1,16 @@
 ﻿
 @{
-    ViewData["Title"] = "GetEmployeeData";
+    ViewData["Title"] = "GetDeactivatedUserData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 @using Microsoft.AspNetCore.Http
 @{
     var userRole = Context.Session.GetString("userRole");
 }
 
-<h1>Get Active Users Data</h1>
+<h1>GetDeactivatedUserData</h1>
 
 <table class="table table-dark table-striped">
     <thead>
@@ -48,7 +50,7 @@
 
                 <td><a asp-controller="Home" asp-action="ActivateUser" asp-route-id="@item.Id">Deactivate</a></td>
 
-                
+
 
             </tr>
         }
