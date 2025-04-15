@@ -31,3 +31,4 @@ namespace Week14bLoginCodeFirst.Models
         public bool? isActive { get; set; }
     }
 }
+
