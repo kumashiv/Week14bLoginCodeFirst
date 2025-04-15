@@ -11,8 +11,8 @@ using Week14bLoginCodeFirst.AppDbContext;
 namespace Week14bLoginCodeFirst.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250403010058_RequiredFieldsadded")]
-    partial class RequiredFieldsadded
+    [Migration("20250413012950_SessionLoginCodeFirstOne")]
+    partial class SessionLoginCodeFirstOne
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

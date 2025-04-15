@@ -64,7 +64,22 @@ namespace Week14bLoginCodeFirst.Controllers
         [HttpGet]
         public IActionResult GetEmployeeData()
         {
-            var Emp = _db.Employees.ToList();
+
+            var Emp = _db.Employees
+                 .Where(a => a.isActive == false || a.isActive == null)
+                 .ToList();
+
+            return View(Emp);
+        }
+
+        [HttpGet]
+        public IActionResult GetDeactivatedUserData()
+        {
+
+            var Emp = _db.Employees
+                 .Where(a => a.isActive == true)
+                 .ToList();
+
             return View(Emp);
         }
 
@@ -95,6 +110,17 @@ namespace Week14bLoginCodeFirst.Controllers
         }
 
 
+        public IActionResult ActivateUser(int id)       
+        {
+            var Emp = _db.Employees.FirstOrDefault(x => x.Id == id);
+
+            //_db.Employees.Update(obj);
+            Emp.isActive = true;
+            _db.SaveChanges();
+            //return View();
+            return RedirectToAction("GetEmployeeData");
+        }
+
 
         public IActionResult LogIn()
         {
@@ -104,9 +130,14 @@ namespace Week14bLoginCodeFirst.Controllers
         [HttpPost]
         public IActionResult LogIn(Employee obj)
         {
+
             var Emp = _db.Employees.FirstOrDefault(e => e.Email == obj.Email && e.Password == obj.Password);
+            
             if (Emp != null)
             {
+                HttpContext.Session.SetString("userEmail", Emp.Email);
+                HttpContext.Session.SetString("userRole", Emp.Role);
+
                 return RedirectToAction("Index");
             }
             else
