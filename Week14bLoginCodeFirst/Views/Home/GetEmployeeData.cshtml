@@ -20,12 +20,16 @@
             <th>Last Name</th>
             <th>Address</th>
             <th>Role</th>
+            
+            @if (@userRole == "SuperAdmin" || @userRole == "Admin")
+            {
+                <th>Update</th>
+            }
             @if (@userRole == "SuperAdmin")
             {
                 <th>Delete</th>
+                <th>isActive</th>
             }
-            <th>Update</th>
-            <th>isActive</th>
         </tr>
     </thead>
 
@@ -40,14 +44,28 @@
                 <td>@item.LastName</td>
                 <td>@item.Address</td>
                 <td>@item.Role</td>
+
+
+                @if (@userRole == "SuperAdmin" || @userRole == "Admin")
+                {
+                    <td><a asp-controller="Home" asp-action="Update" asp-route-id="@item.Id">Update</a></td>
+                }
                 @if (@userRole == "SuperAdmin")
+                {
+                    <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                    <td><a asp-controller="Home" asp-action="ActivateUser" asp-route-id="@item.Id">Deactivate</a></td>
+                }
+
+                
+                
+                @* @if (@userRole == "SuperAdmin")
                 {
                     <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                 }
                 <td><a asp-controller="Home" asp-action="Update" asp-route-id="@item.Id">Update</a></td>
 
                 <td><a asp-controller="Home" asp-action="ActivateUser" asp-route-id="@item.Id">Deactivate</a></td>
-
+ *@
                 
 
             </tr>

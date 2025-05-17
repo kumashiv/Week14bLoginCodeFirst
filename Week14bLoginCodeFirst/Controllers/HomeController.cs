@@ -64,10 +64,7 @@ namespace Week14bLoginCodeFirst.Controllers
         [HttpGet]
         public IActionResult GetEmployeeData()
         {
-
-            var Emp = _db.Employees
-                 .Where(a => a.isActive == false || a.isActive == null)
-                 .ToList();
+            var Emp = _db.Employees.Where(a => a.isActive == false || a.isActive == null).ToList();
 
             return View(Emp);
         }
@@ -76,9 +73,7 @@ namespace Week14bLoginCodeFirst.Controllers
         public IActionResult GetDeactivatedUserData()
         {
 
-            var Emp = _db.Employees
-                 .Where(a => a.isActive == true)
-                 .ToList();
+            var Emp = _db.Employees.Where(a => a.isActive == true).ToList();
 
             return View(Emp);
         }
@@ -110,14 +105,30 @@ namespace Week14bLoginCodeFirst.Controllers
         }
 
 
-        public IActionResult ActivateUser(int id)       
+        //public IActionResult ActivateUser(int id)       
+        //{
+        //    var Emp = _db.Employees.FirstOrDefault(x => x.Id == id);
+
+        //    //_db.Employees.Update(obj);
+        //    Emp.isActive = true;
+        //    _db.SaveChanges();
+        //    //return View();
+        //    return RedirectToAction("GetEmployeeData");
+        //}
+
+
+        public IActionResult ActivateUser(int id)
         {
             var Emp = _db.Employees.FirstOrDefault(x => x.Id == id);
+            if (Emp.isActive == null || Emp.isActive == false)
+            {
+                Emp.isActive = true;
+            }else
+            {
+                Emp.isActive = false;
+            }
 
-            //_db.Employees.Update(obj);
-            Emp.isActive = true;
             _db.SaveChanges();
-            //return View();
             return RedirectToAction("GetEmployeeData");
         }
 
@@ -132,10 +143,10 @@ namespace Week14bLoginCodeFirst.Controllers
         {
 
             var Emp = _db.Employees.FirstOrDefault(e => e.Email == obj.Email && e.Password == obj.Password);
-            
-            if (Emp != null)
+
+            if (Emp != null && Emp.isActive != true)        // Only active user can Login
             {
-                HttpContext.Session.SetString("userEmail", Emp.Email);
+                HttpContext.Session.SetString("userEmail", Emp.Email);      //Storing session state
                 HttpContext.Session.SetString("userRole", Emp.Role);
 
                 return RedirectToAction("Index");
