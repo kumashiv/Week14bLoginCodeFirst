@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Week14bLoginCodeFirst.AppDbContext;
 using Week14bLoginCodeFirst.Models;
@@ -58,8 +60,42 @@ namespace Week14bLoginCodeFirst.Controllers
                                         // Employees is the table name defined in DataContext.cs
             _db.SaveChanges();
 
-            return View();
+            SendEmailToUser(obj.Email);
+
+            return RedirectToAction("GetEmployeeData");
         }
+
+
+
+        public ActionResult SendEmailToUser(string userEmail)
+        {
+            try
+            {
+                // Create a MailMessage object
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress("kajal.kiot2002@gmail.com"); // Sender's email address
+                message.To.Add(userEmail); // Recipient's email address
+                message.Subject = "Account Created"; // Email subject
+                                                                         // message.Body = tempdatavalu;
+                message.Body = "Your registration completed succesfully";
+                // Configure the SMTP client
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Host = "smtp.gmail.com"; // SMTP server address
+                smtpClient.Port = 587; // SMTP port (typically 587 for TLS/STARTTLS)
+                smtpClient.EnableSsl = true; // Enable SSL/TLS encryption if required
+                smtpClient.Credentials = new NetworkCredential("kajal.kiot2002@gmail.com", "zqcr kpnp hpnt qmkh"); // Your email credentials
+                // Send the email
+                smtpClient.Send(message);
+                ViewBag.Message = "Email sent successfully!";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "Failed to send the email: " + ex.Message;
+            }
+
+            return RedirectToAction("dashboard");
+        }
+
 
         [HttpGet]
         public IActionResult GetEmployeeData()
@@ -161,6 +197,65 @@ namespace Week14bLoginCodeFirst.Controllers
         {
             return RedirectToAction("Login");
         }
+
+
+
+
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // Step 2: Handle form submission and find employee by email
+        [HttpPost]
+        public IActionResult ForgotPassword(string email)
+        {
+            var employee = _db.Employees.FirstOrDefault(e => e.Email == email);
+            if (employee != null)
+            {
+                // Redirect to reset password page with employee ID
+                return RedirectToAction("ResetPassword", new { id = employee.Id });
+            }
+            else
+            {
+                ViewBag.Message = "Email not found.";
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(int id)
+        {
+            var employee = _db.Employees.FirstOrDefault(e => e.Id == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            //return View(new Employee { Id = employee.Id }); // Only passing ID
+            return View(employee); // Pass the full employee object
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(int id, string newPassword)
+        {
+            var employee = _db.Employees.FirstOrDefault(e => e.Id == id);
+            if (employee != null)
+            {
+                employee.Password = newPassword;
+                _db.SaveChanges();
+
+                return RedirectToAction("LogIn");
+            }
+
+            return NotFound();
+        }
+
+
+
+
 
 
         public IActionResult Privacy()

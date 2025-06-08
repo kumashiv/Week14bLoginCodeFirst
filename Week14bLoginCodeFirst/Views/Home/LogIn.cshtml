@@ -8,12 +8,154 @@
 }
 
 <style>
-    .fields, label {
-        width: 100px;
-    }
+	/* Reset & base styles */
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+		font-family: 'Inter', sans-serif;
+	}
+
+	/* Container */
+	.auth-container {
+		width: 380px;
+		height: auto;
+		background: linear-gradient(135deg, #ffffff, #f0f0f0);
+		border-radius: 20px;
+		box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+		padding: 40px 30px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	/* Heading styles */
+	h2 {
+		font-size: 2rem;
+		margin-bottom: 20px;
+		color: #333;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	/* Form styles */
+	form {
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Input container with icon */
+	.input-group {
+		position: relative;
+		margin-bottom: 15px;
+	}
+
+		.input-group i {
+			position: absolute;
+			top: 50%;
+			left: 15px;
+			transform: translateY(-50%);
+			color: #666;
+			font-size: 1.1rem;
+			transition: color 0.3s;
+		}
+
+	/* Input styles */
+	input {
+		width: 100%;
+		padding: 12px 12px 12px 40px;
+		border: 1px solid #ccc;
+		border-radius: 10px;
+		font-size: 1rem;
+		transition: border-color 0.3s, box-shadow 0.3s;
+	}
+
+		input:focus {
+			border-color: #66a6ff;
+			box-shadow: 0 0 8px rgba(102, 166, 255, 0.3);
+			outline: none;
+		}
+
+	/* Button styles */
+	button {
+		padding: 14px;
+		margin-top: 20px;
+		border: none;
+		border-radius: 10px;
+		background: linear-gradient(135deg, #667eea, #764ba2);
+		color: #fff;
+		font-size: 1.1rem;
+		cursor: pointer;
+		font-weight: 600;
+		transition: background 0.3s, transform 0.2s;
+	}
+
+		button:hover {
+			background: linear-gradient(135deg, #5a67d8, #6b46c1);
+			transform: translateY(-2px);
+		}
+
+	/* Link to switch pages */
+	.switch-link {
+		display: block;
+		text-align: center;
+		margin-top: 20px;
+		font-size: 0.95rem;
+		color: #555;
+		cursor: pointer;
+		transition: color 0.3s, transform 0.2s;
+		text-decoration: none;
+	}
+
+		.switch-link:hover {
+			color: #667eea;
+			transform: translateY(-1px);
+		}
+
 </style>
 
-<form class="form-horizontal" asp-controller="Home" asp-action="LogIn">
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Login</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<div class="auth-container">
+		<h2>Welcome Back</h2>
+		<form class="form-horizontal" asp-controller="Home" asp-action="LogIn">
+			<div class="input-group">
+				<i class="fas fa-envelope"></i>
+				<input type="email" placeholder="Email" asp-for="Email" required />
+			</div>
+			<div class="input-group">
+				<i class="fas fa-lock"></i>
+				<input type="password" placeholder="Password" asp-for="Password" required />
+			</div>
+			<button type="submit">Login</button>
+		</form>
+		@* <a class="switch-link" href="register.html" >Don't have an account? Sign Up</a> *@
+		<a class="switch-link" asp-area="" asp-controller="Home" asp-action="Create">Don't have an account? Sign Up</a>
+		<a class="switch-link" asp-area="" asp-controller="Home" asp-action="ForgotPassword">Forogt Password ?</a>
+	</div>
+</body>
+</html>
+
+
+
+@* <form class="form-horizontal" asp-controller="Home" asp-action="LogIn">
     <h1>LogIn</h1>
 
     <label class="fields">Email</label>
@@ -24,6 +166,6 @@
     <br /><br />
 
     <button type="Submit">Login</button>
-</form>
+</form> *@
 
 

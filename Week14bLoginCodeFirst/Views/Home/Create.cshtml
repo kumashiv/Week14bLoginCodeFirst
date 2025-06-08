@@ -1,7 +1,8 @@
 ﻿@model Week14bLoginCodeFirst.Models.Employee
 @{
 	ViewData["Title"] = "Create";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	// Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = null;
 }
 
 @using Microsoft.AspNetCore.Http
@@ -12,17 +13,274 @@
 
 
 <style>
-	#ADD {
-		color: goldenrod;
-		font-size: 14px;
+	/* Reset & base styles */
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
 	}
-	label {
-		width:150px;
+
+	body {
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+		font-family: 'Inter', sans-serif;
 	}
+
+	/* Container */
+	.auth-container {
+		width: 380px;
+		height: auto;
+		background: linear-gradient(135deg, #ffffff, #f0f0f0);
+		border-radius: 20px;
+		box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+		padding: 40px 30px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	/* Heading styles */
+	h2 {
+		font-size: 2rem;
+		margin-bottom: 20px;
+		color: #333;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	/* Form styles */
+	form {
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Input container with icon */
+	.input-group {
+		position: relative;
+		margin-bottom: 15px;
+	}
+
+		.input-group i {
+			position: absolute;
+			top: 50%;
+			left: 15px;
+			transform: translateY(-50%);
+			color: #666;
+			font-size: 1.1rem;
+			transition: color 0.3s;
+		}
+
+	/* Input styles */
+	input {
+		width: 100%;
+		padding: 12px 12px 12px 40px;
+		border: 1px solid #ccc;
+		border-radius: 10px;
+		font-size: 1rem;
+		transition: border-color 0.3s, box-shadow 0.3s;
+	}
+
+		input:focus {
+			border-color: #66a6ff;
+			box-shadow: 0 0 8px rgba(102, 166, 255, 0.3);
+			outline: none;
+		}
+
+	/* Button styles */
+	button {
+		padding: 14px;
+		margin-top: 20px;
+		border: none;
+		border-radius: 10px;
+		background: linear-gradient(135deg, #667eea, #764ba2);
+		color: #fff;
+		font-size: 1.1rem;
+		cursor: pointer;
+		font-weight: 600;
+		transition: background 0.3s, transform 0.2s;
+	}
+
+		button:hover {
+			background: linear-gradient(135deg, #5a67d8, #6b46c1);
+			transform: translateY(-2px);
+		}
+
+	/* Link to switch pages */
+	.switch-link {
+		display: block;
+		text-align: center;
+		margin-top: 20px;
+		font-size: 0.95rem;
+		color: #555;
+		cursor: pointer;
+		transition: color 0.3s, transform 0.2s;
+		text-decoration: none;
+	}
+
+		.switch-link:hover {
+			color: #667eea;
+			transform: translateY(-1px);
+		}
+
+
+
+
+/* radio-group */
+
+	/* Group styling similar to input-group */
+	.radio-group {
+		margin-bottom: 15px;
+	}
+
+	.radio-label {
+		display: block;
+		margin-bottom: 8px;
+		color: #333;
+		font-weight: 500;
+		font-size: 1rem;
+	}
+
+	/* Style individual radio items */
+	.form-check {
+		display: flex;
+		align-items: center;
+		margin-bottom: 8px;
+	}
+
+	/* Lock label width for consistency */
+	.form-check-label {
+		width: 100px; /* Adjust as needed */
+		font-size: 0.95rem;
+		color: #333;
+		cursor: pointer;
+		margin-right: 10px;
+		flex-shrink: 0; /* Prevent label from shrinking */
+	}
+
+	/* Ensure radio button stays aligned */
+	.form-check-input {
+		flex-shrink: 0;
+		transform: scale(1.1); /* Optional: enlarge for visibility */
+		cursor: pointer;
+		accent-color: #667eea; /* Optional: matches theme */
+	}
+
+
+	/* Remove hover/focus effect on radio buttons */
+	.form-check-input {
+		transform: scale(1.1);
+		cursor: pointer;
+		accent-color: #667eea; /* optional styling */
+		border: none;
+		box-shadow: none;
+		outline: none;
+	}
+
+		.form-check-input:focus,
+		.form-check-input:hover {
+			box-shadow: none;
+			outline: none;
+			border: none;
+		}
+
+
+
+
 </style>
 
 
-@if (@userEmail == "Kamin")
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Register</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<div class="auth-container">
+		<h2>Create Account</h2>
+		<form asp-controller="Home" asp-action="Create">
+			
+			
+			
+			<div class="input-group">
+				<i class="fas fa-envelope"></i>
+				<input type="email" placeholder="Email" asp-for="Email" required />
+			</div>
+
+			<div class="input-group">
+				<i class="fas fa-lock"></i>
+				<input type="password" placeholder="Password" asp-for="Password" required />
+			</div>
+
+			<div class="input-group">
+				<i class="fas fa-user"></i>
+				<input type="text" placeholder="First Name" asp-for="FirstName"  />
+			</div>
+			<div class="input-group">
+				<i class="fas fa-user"></i>
+				<input type="text" placeholder="Last Name" asp-for="LastName"  />
+			</div>
+
+			<div class="input-group">
+				<i class="fas fa-location-dot"></i>
+				<input type="text" placeholder="Address" asp-for="Address"  />
+			</div>
+
+
+			<!--radio button-->
+
+			<div class="radio-group">
+				<label class="radio-label">Role</label>
+
+				<div class="form-check">
+					<label class="form-check-label" for="roleEmployee">Employee</label>
+					<input asp-for="Role" type="radio" value="Employee" class="form-check-input" id="roleEmployee" />
+				</div>
+
+				<div class="form-check">
+					<label class="form-check-label" for="roleAdmin">Admin</label>
+					<input asp-for="Role" type="radio" value="Admin" class="form-check-input" id="roleAdmin" />
+				</div>
+
+				<div class="form-check">
+					<label class="form-check-label" for="roleSuperAdmin">SuperAdmin</label>
+					<input asp-for="Role" type="radio" value="SuperAdmin" class="form-check-input" id="roleSuperAdmin" />
+				</div>
+			</div>
+
+
+
+
+
+			<button type="submit">Sign Up</button>
+		</form>
+		<a class="switch-link" asp-area="" asp-controller="Home" asp-action="Logout">Already have an account? Login</a>
+	</div>
+</body>
+</html>
+
+<script>
+		// Select the flip container
+	// const flipContainer = document.getElementById('flipBox');
+
+	// // Event listener for switching to signup
+	// document.getElementById('toSignup').addEventListener('click', () => {
+	//   flipContainer.classList.add('show-signup');
+	// });
+
+	// // Event listener for switching to login
+	// document.getElementById('toLogin').addEventListener('click', () => {
+	//   flipContainer.classList.remove('show-signup');
+	// });
+</script>
+
+@* @if (@userEmail == "Kamin")
 {
 	<h4>You're not able to create user'</h4>
 }
@@ -32,12 +290,14 @@ else{
 		@if(userEmail != null){
 			<div>User: <span>@userEmail</span></div>
 		}
-		<h1>Create</h1>
+		<h1>Registration</h1>
+		<br>
 
 
 		<label>Email</label>
 		<input type="text" asp-for="Email" /><br />
 		<span asp-validation-for="Email" class="text-danger"></span><br />
+
 		<label>Password</label>
 		<input type="text" asp-for="Password" /><br />
 
@@ -49,6 +309,7 @@ else{
 
 		<label>Last Name</label>
 		<input type="text" asp-for="LastName" /><br /><br />
+
 		<label>Address</label>
 		<input type="text" asp-for="Address" />
 
@@ -81,7 +342,7 @@ else{
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 
-}
+} *@
 
 
 @* 
@@ -146,3 +407,5 @@ else{
 
 @* <span asp-validation-for="FirstName" id="ADD"></span><br /> *@
 @* <span asp-validation-for="Password" class="text-danger"></span> *@
+
+

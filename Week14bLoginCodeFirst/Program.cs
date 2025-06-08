@@ -15,7 +15,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 // Session
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(20);     //FromMinutes(20);
+    options.IdleTimeout = TimeSpan.FromMinutes(20);     //FromMinutes(20);          FromSeconds(20); 
 }
 );
 
